@@ -1,0 +1,15 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+//Script to parralellize Matrix Substractions
+
+RWStructuredBuffer<double> matrixAValues;
+RWStructuredBuffer<double> matrixBValues;
+RWStructuredBuffer<double> newMatrixValues;
+
+//Substracts the values from each matrix
+[numthreads(16, 8, 8)]
+void CSMain(uint id : SV_GroupIndex)
+{
+    newMatrixValues[id.x] = matrixAValues[id.x] - matrixBValues[id.x];
+}
